@@ -51,16 +51,23 @@ public class Main {
         boolean isRunning = true;
         while (isRunning) {
             Scanner input = new Scanner(System.in);
-            System.out.println("\nTHE BANK" +
-                    "\nCurrent active account: " + (defaultAccount + 1) + "\n" +
-                    "\n1. Create an account" +
-                    "\n2. Deposit" +
-                    "\n3. Withdraw" +
-                    "\n4. Transfer between accounts" +
-                    "\n5. Show bank accounts" +
-                    "\n6. Change account to manage" +
-                    "\n7. Delete account" +
-                    "\n8. Quit");
+            System.out.println("\nTHE BANK");
+            if (accountList.isEmpty()) {
+                System.out.println("Current active account: No accounts found!");
+            }
+            else {
+                System.out.println("Current active account: " + (defaultAccount + 1)
+                        + " \"" + accountList.get(defaultAccount).getCustomerName() + "\"");
+            }
+
+            System.out.println("\n1. Create an account" +
+                               "\n2. Deposit" +
+                               "\n3. Withdraw" +
+                               "\n4. Transfer between accounts" +
+                               "\n5. Show bank accounts" +
+                               "\n6. Change account to manage" +
+                               "\n7. Delete account" +
+                               "\n8. Quit");
             System.out.print("Enter: "); String choice = input.nextLine();
             switch (choice) {
                 case "1": {
@@ -162,7 +169,7 @@ public class Main {
                             if (answer.equalsIgnoreCase("yes")) {
                                 System.out.println("Account #" + (del+1) + " " + accountList.get(del).getCustomerName()
                                         + " deleted!");
-                                System.out.println("Active account has been reset to 1");
+                                System.out.println("Active account has been reset.");
                                 defaultAccount = 0;
                                 accountList.remove(del);
 
