@@ -7,8 +7,13 @@ public class Main {
     static List<BankAccount> accountList = new ArrayList<BankAccount>();
 
     static void showAccounts() {
-        for (int i = 0; i < accountList.size(); i++) {
-            System.out.print((i+1) + ". ");  accountList.get(i).showStats();
+        if (accountList.isEmpty()) {
+            System.out.println("List is empty...");
+        }
+        else {
+            for (int i = 0; i < accountList.size(); i++) {
+                System.out.print((i+1) + ". ");  accountList.get(i).showStats();
+            }
         }
     }
 
@@ -48,8 +53,9 @@ public class Main {
                     "\n2. Deposit" +
                     "\n3. Withdraw" +
                     "\n4. Show bank accounts" +
-                    "\n5. Change account to manage"+
-                    "\n6. Quit");
+                    "\n5. Change account to manage" +
+                    "\n6. Delete account" +
+                    "\n7. Quit");
             System.out.print("Enter: "); String choice = input.nextLine();
             switch (choice) {
                 case "1": {
@@ -101,6 +107,33 @@ public class Main {
                     break;
                 }
                 case "6": {
+                    System.out.println("\n==============================================");
+                    showAccounts();
+                    if (!accountList.isEmpty()) {
+                        System.out.print("Enter account to delete: ");
+                        int del = ((int)inputNumber() - 1);
+                        if (del >= 0 && del < accountList.size()) {
+                            System.out.print("Are you sure? (Yes or No): ");
+                            String answer = input.nextLine();
+                            if (answer.toLowerCase().equals("yes")) {
+                                System.out.println("Account #" + (del+1) + " " + accountList.get(del).getCustomerName()
+                                        + " deleted!");
+                                accountList.remove(del);
+                            }
+                            else if (answer.toLowerCase().equals("no")) {
+                                System.out.println("No accounts deleted.");
+                            }
+                            else {
+                                System.out.println("Wrong input, returns to menu...");
+                            }
+                        }
+                        else {
+                            System.out.println("Wrong input or account does not exist!");
+                        }
+                    }
+                    break;
+                }
+                case "7": {
                     isRunning = false;
                     break;
                 }
