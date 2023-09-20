@@ -7,7 +7,7 @@ public class Main {
 
     static void showAccounts() {
         for (int i = 0; i < accountList.size(); i++) {
-            accountList.get(i).showStats();
+            System.out.print((i+1) + ". ");  accountList.get(i).showStats();
         }
     }
 
@@ -20,6 +20,7 @@ public class Main {
         while (isRunning) {
             Scanner input = new Scanner(System.in);
             System.out.println("\nTHE BANK" +
+                    "\nCurrent active account: " + (defaultAccount + 1) + "\n" +
                     "\n1. Create an account" +
                     "\n2. Deposit" +
                     "\n3. Withdraw" +
@@ -29,6 +30,7 @@ public class Main {
             System.out.print("Enter: "); String choice = input.nextLine();
             switch (choice) {
                 case "1": {
+                    System.out.println("\n==============================================");
                     System.out.print("Enter customer name: ");
                     String name = input.nextLine();
                     System.out.print("Enter customer email: ");
@@ -43,21 +45,36 @@ public class Main {
                     break;
                 }
                 case "2": {
+                    System.out.println("\n==============================================");
                     System.out.print("Enter how much to deposit: ");
                     accountList.get(0).deposit(input.nextDouble());
                     break;
                 }
                 case "3": {
+                    System.out.println("\n==============================================");
                     System.out.print("How much would you like to withdraw? ");
                     accountList.get(0).withdraw(input.nextDouble());
                     break;
                 }
                 case "4": {
+                    System.out.println("\n==============================================");
                     showAccounts();
                     break;
                 }
                 case "5": {
-
+                    System.out.println("\n==============================================");
+                    showAccounts();
+                    System.out.print("Enter an account from the list: ");
+                    int nr = (input.nextInt() - 1);
+                    if (nr >= 0 && nr < accountList.size()) {
+                        System.out.println("Change account from " + (defaultAccount + 1) + " "
+                                + accountList.get(defaultAccount).getCustomerName() + " to " + (nr + 1) + " "
+                                + accountList.get(nr).getCustomerName());
+                        defaultAccount = nr;
+                    }
+                    else {
+                        System.out.println("Wrong input or account does not exist!");
+                    }
                     break;
                 }
                 case "6": {
