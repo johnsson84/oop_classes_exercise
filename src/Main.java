@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,6 +10,28 @@ public class Main {
         for (int i = 0; i < accountList.size(); i++) {
             System.out.print((i+1) + ". ");  accountList.get(i).showStats();
         }
+    }
+
+    static double inputNumber() {
+        Scanner in = new Scanner(System.in);
+        double input = 0;
+        while (true) {
+            try {
+                double nr = in.nextDouble();
+                if (nr >= 0) {
+                    input = nr;
+                    break;
+                }
+                else {
+                    System.out.print("Cant be negative, try again: ");
+                }
+            }
+            catch (InputMismatchException e) {
+                System.out.print("Cant be a letter, try again: ");
+                in.nextLine();
+            }
+        }
+        return input;
     }
 
     public static void main(String[] args) {
@@ -36,24 +59,24 @@ public class Main {
                     System.out.print("Enter customer email: ");
                     String email = input.nextLine();
                     System.out.print("Enter customer phone number: ");
-                    int phone = input.nextInt(); input.nextLine();
+                    int phone = (int)inputNumber();
                     System.out.print("Enter customer account number: ");
-                    int account = input.nextInt(); input.nextLine();
+                    int account = (int)inputNumber();
                     System.out.print("Enter account balance: ");
-                    double money = input.nextDouble(); input.nextLine();
+                    double money = inputNumber();
                     accountList.add(new BankAccount(account, money, name, email, phone));
                     break;
                 }
                 case "2": {
                     System.out.println("\n==============================================");
                     System.out.print("Enter how much to deposit: ");
-                    accountList.get(0).deposit(input.nextDouble());
+                    accountList.get(defaultAccount).deposit(inputNumber());
                     break;
                 }
                 case "3": {
                     System.out.println("\n==============================================");
                     System.out.print("How much would you like to withdraw? ");
-                    accountList.get(0).withdraw(input.nextDouble());
+                    accountList.get(defaultAccount).withdraw(inputNumber());
                     break;
                 }
                 case "4": {
@@ -65,10 +88,10 @@ public class Main {
                     System.out.println("\n==============================================");
                     showAccounts();
                     System.out.print("Enter an account from the list: ");
-                    int nr = (input.nextInt() - 1);
+                    int nr = ((int)inputNumber() - 1);
                     if (nr >= 0 && nr < accountList.size()) {
-                        System.out.println("Change account from " + (defaultAccount + 1) + " "
-                                + accountList.get(defaultAccount).getCustomerName() + " to " + (nr + 1) + " "
+                        System.out.println("Change account from #" + (defaultAccount + 1) + " "
+                                + accountList.get(defaultAccount).getCustomerName() + " to #" + (nr + 1) + " "
                                 + accountList.get(nr).getCustomerName());
                         defaultAccount = nr;
                     }
