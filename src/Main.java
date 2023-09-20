@@ -83,6 +83,24 @@ public class Main {
                     System.out.print("Enter account balance: ");
                     double money = inputNumber();
                     accountList.add(new BankAccount(account, money, name, email, phone));
+                    System.out.print("Account created!\n" +
+                                       "Do you want to set it to active? ");
+                    while (true) {
+                        String makeActive = input.nextLine();
+                        if (makeActive.equalsIgnoreCase("yes")) {
+                            defaultAccount = (accountList.size() - 1);
+                            System.out.println("Changed active account...");
+                            break;
+                        }
+                        else if (makeActive.equalsIgnoreCase("no")) {
+                            System.out.println("Active account unchanged...");
+                            break;
+                        }
+                        else {
+                            System.out.print("Yes or no: ");
+                        }
+                    }
+
                     break;
                 }
                 case "2": {
