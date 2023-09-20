@@ -75,4 +75,11 @@ public class BankAccount {
                            " | Account number: " + accountNumber +
                            " | Account balance: " + accountBalance);
     }
+
+    public void addToAccount(double addMoney) {
+        this.accountBalance += addMoney;
+    }
+    public void removeFromAccount(double removeMoney) {
+        this.accountBalance -= removeMoney;
+    }
 }

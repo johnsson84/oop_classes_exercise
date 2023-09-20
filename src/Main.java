@@ -43,6 +43,9 @@ public class Main {
 
         accountList.add(new BankAccount(123, 23000, "Johan Johnsson",
                 "johan@johnsson-net.se", 739350926));
+        accountList.add(new BankAccount(1337, 19500, "Sven-Berit Urbansdotter",
+                "svenberit34@passagen.se", 520441394));
+
         int defaultAccount = 0;
         boolean isRunning = true;
         while (isRunning) {
@@ -52,10 +55,11 @@ public class Main {
                     "\n1. Create an account" +
                     "\n2. Deposit" +
                     "\n3. Withdraw" +
-                    "\n4. Show bank accounts" +
-                    "\n5. Change account to manage" +
-                    "\n6. Delete account" +
-                    "\n7. Quit");
+                    "\n4. Transfer between accounts" +
+                    "\n5. Show bank accounts" +
+                    "\n6. Change account to manage" +
+                    "\n7. Delete account" +
+                    "\n8. Quit");
             System.out.print("Enter: "); String choice = input.nextLine();
             switch (choice) {
                 case "1": {
@@ -88,25 +92,49 @@ public class Main {
                 case "4": {
                     System.out.println("\n==============================================");
                     showAccounts();
+                    System.out.print("Enter what account number do you want to transfer from: ");
+                    int fromAccount = ((int)inputNumber() -1);
+                    System.out.print("Enter reciever account number: ");
+                    int toAccount = ((int)inputNumber() -1);
+                    System.out.println("Enter much money to transfer:");
+                    double moneyTransfer = inputNumber();
+                    if (moneyTransfer <= accountList.get(fromAccount).getAccountBalance()) {
+                        accountList.get(toAccount).addToAccount(moneyTransfer);
+                        accountList.get(fromAccount).removeFromAccount(moneyTransfer);
+                        System.out.println(moneyTransfer + " kr was tranferred from "
+                                + accountList.get(fromAccount).getCustomerName()
+                                + " to " + accountList.get(toAccount).getCustomerName());
+                    }
+                    else {
+                        System.out.println("There is not enough money...");
+                    }
+                    showAccounts();
                     break;
                 }
                 case "5": {
                     System.out.println("\n==============================================");
                     showAccounts();
-                    System.out.print("Enter an account from the list: ");
-                    int nr = ((int)inputNumber() - 1);
-                    if (nr >= 0 && nr < accountList.size()) {
-                        System.out.println("Change account from #" + (defaultAccount + 1) + " "
-                                + accountList.get(defaultAccount).getCustomerName() + " to #" + (nr + 1) + " "
-                                + accountList.get(nr).getCustomerName());
-                        defaultAccount = nr;
-                    }
-                    else {
-                        System.out.println("Wrong input or account does not exist!");
-                    }
                     break;
                 }
                 case "6": {
+                    System.out.println("\n==============================================");
+                    showAccounts();
+                    if (!accountList.isEmpty()) {
+                        System.out.print("Enter an account from the list: ");
+                        int nr = ((int)inputNumber() - 1);
+                        if (nr >= 0 && nr < accountList.size()) {
+                            System.out.println("Change account from #" + (defaultAccount + 1) + " "
+                                    + accountList.get(defaultAccount).getCustomerName() + " to #" + (nr + 1) + " "
+                                    + accountList.get(nr).getCustomerName());
+                            defaultAccount = nr;
+                        }
+                        else {
+                            System.out.println("Wrong input or account does not exist!");
+                        }
+                    }
+                    break;
+                }
+                case "7": {
                     System.out.println("\n==============================================");
                     showAccounts();
                     if (!accountList.isEmpty()) {
@@ -115,12 +143,12 @@ public class Main {
                         if (del >= 0 && del < accountList.size()) {
                             System.out.print("Are you sure? (Yes or No): ");
                             String answer = input.nextLine();
-                            if (answer.toLowerCase().equals("yes")) {
+                            if (answer.equalsIgnoreCase("yes")) {
                                 System.out.println("Account #" + (del+1) + " " + accountList.get(del).getCustomerName()
                                         + " deleted!");
                                 accountList.remove(del);
                             }
-                            else if (answer.toLowerCase().equals("no")) {
+                            else if (answer.equalsIgnoreCase("no")) {
                                 System.out.println("No accounts deleted.");
                             }
                             else {
@@ -133,7 +161,7 @@ public class Main {
                     }
                     break;
                 }
-                case "7": {
+                case "8": {
                     isRunning = false;
                     break;
                 }
