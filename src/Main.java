@@ -3,11 +3,19 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    static List<BankAccount> accountList = new ArrayList<BankAccount>();
+
+    static void showAccounts() {
+        for (int i = 0; i < accountList.size(); i++) {
+            accountList.get(i).showStats();
+        }
+    }
+
     public static void main(String[] args) {
 
-        List<BankAccount> accountList = new ArrayList<BankAccount>();
         accountList.add(new BankAccount(123, 23000, "Johan Johnsson",
                 "johan@johnsson-net.se", 739350926));
+        int defaultAccount = 0;
         boolean isRunning = true;
         while (isRunning) {
             Scanner input = new Scanner(System.in);
@@ -16,7 +24,8 @@ public class Main {
                     "\n2. Deposit" +
                     "\n3. Withdraw" +
                     "\n4. Show bank accounts" +
-                    "\n5. Quit");
+                    "\n5. Change account to manage"+
+                    "\n6. Quit");
             System.out.print("Enter: "); String choice = input.nextLine();
             switch (choice) {
                 case "1": {
@@ -34,7 +43,8 @@ public class Main {
                     break;
                 }
                 case "2": {
-
+                    System.out.print("Enter how much to deposit: ");
+                    accountList.get(0).deposit(input.nextDouble());
                     break;
                 }
                 case "3": {
@@ -43,12 +53,14 @@ public class Main {
                     break;
                 }
                 case "4": {
-                    for (int i = 0; i < accountList.size(); i++) {
-                        accountList.get(i).showStats();
-                    }
+                    showAccounts();
                     break;
                 }
                 case "5": {
+
+                    break;
+                }
+                case "6": {
                     isRunning = false;
                     break;
                 }

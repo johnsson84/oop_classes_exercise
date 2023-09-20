@@ -53,6 +53,7 @@ public class BankAccount {
 
     public void deposit(double money) {
         this.accountBalance += money;
+        System.out.println("You have " + this.accountBalance + " kr on your account.");
     }
 
     public double withdraw(double money) {
