@@ -1,8 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
+        List<BankAccount> accountList = new ArrayList<BankAccount>();
+        accountList.add(new BankAccount(123, 23000, "Johan Johnsson",
+                "johan@johnsson-net.se", 739350926));
         boolean isRunning = true;
         while (isRunning) {
             Scanner input = new Scanner(System.in);
@@ -10,19 +15,40 @@ public class Main {
                     "\n1. Create an account" +
                     "\n2. Deposit" +
                     "\n3. Withdraw" +
-                    "\n4. Quit");
+                    "\n4. Show bank accounts" +
+                    "\n5. Quit");
             System.out.print("Enter: "); String choice = input.nextLine();
             switch (choice) {
                 case "1": {
+                    System.out.print("Enter customer name: ");
+                    String name = input.nextLine();
+                    System.out.print("Enter customer email: ");
+                    String email = input.nextLine();
+                    System.out.print("Enter customer phone number: ");
+                    int phone = input.nextInt(); input.nextLine();
+                    System.out.print("Enter customer account number: ");
+                    int account = input.nextInt(); input.nextLine();
+                    System.out.print("Enter account balance: ");
+                    double money = input.nextDouble(); input.nextLine();
+                    accountList.add(new BankAccount(account, money, name, email, phone));
                     break;
                 }
                 case "2": {
+
                     break;
                 }
                 case "3": {
+                    System.out.print("How much would you like to withdraw? ");
+                    accountList.get(0).withdraw(input.nextDouble());
                     break;
                 }
                 case "4": {
+                    for (int i = 0; i < accountList.size(); i++) {
+                        accountList.get(i).showStats();
+                    }
+                    break;
+                }
+                case "5": {
                     isRunning = false;
                     break;
                 }
