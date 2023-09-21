@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    // Lista som nås över hela programmet som konton sparas i.
     static List<BankAccount> accountList = new ArrayList<BankAccount>();
 
+    // Metod för att visa lista över konton som finns.
     static void showAccounts() {
         if (accountList.isEmpty()) {
             System.out.println("List is empty...");
@@ -17,6 +19,7 @@ public class Main {
         }
     }
 
+    // Metod för att mata in en siffra, sålla ut bokstäver och negativa tal.
     static double inputNumber() {
         Scanner in = new Scanner(System.in);
         double input = 0;
@@ -42,12 +45,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        accountList.add(new BankAccount(123, 23000, "Johan Johnsson",
-                "johan@johnsson-net.se", 739350926));
-        accountList.add(new BankAccount(1337, 19500, "Sven-Berit Urbansdotter",
-                "svenberit34@passagen.se", 520441394));
+        // Två fördefinerade konton.
+        accountList.add(new BankAccount("Johan Johnsson", "johan@johnsson-net.se",
+                739350926, "Swedbank", 2485886887L, 25000));
+        accountList.add(new BankAccount("Sven-Berit Urbansdotter", "svenberit34@passagen.se",
+                735085566, "Nordea", 4565461231L, 19000));
 
-        int defaultAccount = 0;
+        int defaultAccount = 0; // Anger vilket konto som ska visas som aktiv i huvudmenyn.
         boolean isRunning = true;
         while (isRunning) {
             Scanner input = new Scanner(System.in);
@@ -70,6 +74,7 @@ public class Main {
                                "\n8. Quit");
             System.out.print("Enter: "); String choice = input.nextLine();
             switch (choice) {
+                // Skapa nytt bank konto.
                 case "1": {
                     System.out.println("\n==============================================");
                     System.out.print("Enter customer name: ");
@@ -78,11 +83,13 @@ public class Main {
                     String email = input.nextLine();
                     System.out.print("Enter customer phone number: ");
                     int phone = (int)inputNumber();
+                    System.out.print("Enter customer bank: ");
+                    String bank = input.nextLine();
                     System.out.print("Enter customer account number: ");
                     int account = (int)inputNumber();
                     System.out.print("Enter account balance: ");
                     double money = inputNumber();
-                    accountList.add(new BankAccount(account, money, name, email, phone));
+                    accountList.add(new BankAccount(name, email, phone, bank, account, money));
                     System.out.print("Account created!\n" +
                                        "Do you want to set it to active? ");
                     while (true) {
@@ -103,6 +110,7 @@ public class Main {
 
                     break;
                 }
+                // Sätt in pengar.
                 case "2": {
                     if (!accountList.isEmpty()) {
                         System.out.println("\n==============================================");
@@ -114,6 +122,7 @@ public class Main {
                     }
                     break;
                 }
+                // Ta ut pengar.
                 case "3": {
                     if (!accountList.isEmpty()) {
                         System.out.println("\n==============================================");
@@ -125,6 +134,7 @@ public class Main {
                     }
                     break;
                 }
+                // För över pengar mellan konton.
                 case "4": {
                     System.out.println("\n==============================================");
                     showAccounts();
@@ -135,6 +145,7 @@ public class Main {
                         int toAccount = ((int)inputNumber() -1);
                         System.out.println("Enter much money to transfer:");
                         double moneyTransfer = inputNumber();
+                        // Om det finns tillräckligt med pengar.
                         if (moneyTransfer <= accountList.get(fromAccount).getAccountBalance()) {
                             accountList.get(toAccount).addToAccount(moneyTransfer);
                             accountList.get(fromAccount).removeFromAccount(moneyTransfer);
@@ -152,11 +163,13 @@ public class Main {
                     }
                     break;
                 }
+                // Visa konton.
                 case "5": {
                     System.out.println("\n==============================================");
                     showAccounts();
                     break;
                 }
+                // Byt aktivt konto.
                 case "6": {
                     System.out.println("\n==============================================");
                     showAccounts();
@@ -175,12 +188,14 @@ public class Main {
                     }
                     break;
                 }
+                // Ta bort ett konto.
                 case "7": {
                     System.out.println("\n==============================================");
                     showAccounts();
                     if (!accountList.isEmpty()) {
                         System.out.print("Enter account to delete: ");
                         int del = ((int)inputNumber() - 1);
+                        // Om konto du matat in finns.
                         if (del >= 0 && del < accountList.size()) {
                             System.out.print("Are you sure? (Yes or No): ");
                             String answer = input.nextLine();
@@ -205,6 +220,7 @@ public class Main {
                     }
                     break;
                 }
+                // Avsluta programmet.
                 case "8": {
                     isRunning = false;
                     break;

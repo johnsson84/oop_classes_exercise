@@ -1,23 +1,24 @@
 public class BankAccount {
-
-    private int accountNumber;
-    private double accountBalance;
     private String customerName;
     private String customerEmail;
     private int customerPhone;
+    private String bank;
+    private long accountNumber;
+    private double accountBalance;
 
-    public BankAccount(int accountNumber, double accountBalance, String customerName, String customerEmail, int customerPhone) {
-        this.accountNumber = accountNumber;
-        this.accountBalance = accountBalance;
+    public BankAccount(String customerName, String customerEmail, int customerPhone, String bank, long accountNumber, double accountBalance) {
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.customerPhone = customerPhone;
+        this.bank = bank;
+        this.accountNumber = accountNumber;
+        this.accountBalance = accountBalance;
     }
 
-    public int getAccountNumber() {
+    public long getAccountNumber() {
         return accountNumber;
     }
-    public void setAccountNumber(int accountNumber) {
+    public void setAccountNumber(long accountNumber) {
         this.accountNumber = accountNumber;
     }
     public double getAccountBalance() {
@@ -50,6 +51,13 @@ public class BankAccount {
     public void setCustomerPhone(int customerPhone) {
         this.customerPhone = customerPhone;
     }
+    public String getBank() {
+        return bank;
+    }
+
+    public void setBank(String bank) {
+        this.bank = bank;
+    }
 
     public void deposit(double money) {
         this.accountBalance += money;
@@ -69,12 +77,14 @@ public class BankAccount {
     }
 
     public void showStats() {
-        System.out.printf("|%-5s %30s| |%-6s %29s| |%-7s %11s| |%-11s %10s| |%-8s %15s|\n",
+        System.out.printf("|%-11s %30s| |%-11s %30s| |%-11s %30s|\n   |%-11s %30s| |%-11s %30s| |%-11s %30s|\n",
                 "Name:", customerName,
                 "Email:", customerEmail,
                 "Phone:", "0" + customerPhone,
+                "Bank:", bank,
                 "Account nr:", accountNumber,
                 "Balance:", accountBalance + " SEK");
+        System.out.println("==============================================");
         /*
         System.out.println("Name: " + customerName +
                            " | Email: " + customerEmail +
@@ -91,4 +101,6 @@ public class BankAccount {
     public void removeFromAccount(double removeMoney) {
         this.accountBalance -= removeMoney;
     }
+
+
 }
