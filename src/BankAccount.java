@@ -69,11 +69,20 @@ public class BankAccount {
     }
 
     public void showStats() {
+        System.out.printf("|%-5s %30s| |%-6s %29s| |%-7s %11s| |%-11s %10s| |%-8s %15s|\n",
+                "Name:", customerName,
+                "Email:", customerEmail,
+                "Phone:", "0" + customerPhone,
+                "Account nr:", accountNumber,
+                "Balance:", accountBalance + " SEK");
+        /*
         System.out.println("Name: " + customerName +
                            " | Email: " + customerEmail +
                            " | Phonenumber: " + customerPhone +
                            " | Account number: " + accountNumber +
                            " | Account balance: " + accountBalance);
+
+         */
     }
 
     public void addToAccount(double addMoney) {
