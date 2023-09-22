@@ -55,7 +55,8 @@ public class Main {
         boolean isRunning = true;
         while (isRunning) {
             Scanner input = new Scanner(System.in);
-            System.out.println("\nTHE BANK");
+            System.out.println("\n==============================================");
+            System.out.println("THE BANK");
             if (accountList.isEmpty()) {
                 System.out.println("Current active account: No accounts found!");
             }
